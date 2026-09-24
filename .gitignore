@@ -1,0 +1,7 @@
+.bundle/
+.sisyphus/
+.ruby-version
+.ruby-gemset
+*.log
+tmp/
+vendor/bundle/

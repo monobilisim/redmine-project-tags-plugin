@@ -1,6 +1,33 @@
-# Redmine Project Tags
+# [![Contributors][contributors-shield]][contributors-url]
 
-A Redmine plugin that adds permission-controlled tags to projects and displays them on project overview pages and issue details.
+[![Forks][forks-shield]][forks-url]
+[![Stargazers][stars-shield]][stars-url]
+[![Issues][issues-shield]][issues-url]
+[![Apache License][license-shield]][license-url]
+
+[![Readme in English](https://img.shields.io/badge/README-English-blue)](README.md)
+[![Readme in Turkish](https://img.shields.io/badge/README-Turkish-blue)](README-Turkish.md)
+
+<div align="center">
+  <a href="https://mono.net.tr/">
+    <img src="https://r2.mono.tr/logo/Mono-Logo.svg" width="340" alt="Mono Bilişim" />
+  </a>
+
+  <h2 align="center">Redmine Project Tags</h2>
+  <b>Redmine Project Tags</b> adds permission-controlled tags to Redmine projects and displays them on project overview pages and issue details.
+</div>
+
+---
+
+## Table of Contents
+
+- [Features](#features)
+- [Requirements](#requirements)
+- [Installation](#installation)
+- [Configuration](#configuration)
+- [Development](#development)
+- [Author](#author)
+- [License](#license)
 
 ## Features
 
@@ -62,8 +89,21 @@ For full integration testing, run the Redmine test suite with the plugin install
 
 ## Author
 
-Ali Erdem Cerrah — <ali.cerrah@mono.tr>
+Ali Erdem Cerrah — <cerrahalierdem@gmail.com>
 
 ## License
 
 This project is licensed under the Apache License, Version 2.0. See [LICENSE](LICENSE).
+
+---
+
+[contributors-shield]: https://img.shields.io/github/contributors/monobilisim/redmine-project-tags-plugin.svg?style=for-the-badge
+[contributors-url]: https://github.com/monobilisim/redmine-project-tags-plugin/graphs/contributors
+[forks-shield]: https://img.shields.io/github/forks/monobilisim/redmine-project-tags-plugin.svg?style=for-the-badge
+[forks-url]: https://github.com/monobilisim/redmine-project-tags-plugin/network/members
+[stars-shield]: https://img.shields.io/github/stars/monobilisim/redmine-project-tags-plugin.svg?style=for-the-badge
+[stars-url]: https://github.com/monobilisim/redmine-project-tags-plugin/stargazers
+[issues-shield]: https://img.shields.io/github/issues/monobilisim/redmine-project-tags-plugin.svg?style=for-the-badge
+[issues-url]: https://github.com/monobilisim/redmine-project-tags-plugin/issues
+[license-shield]: https://img.shields.io/github/license/monobilisim/redmine-project-tags-plugin.svg?style=for-the-badge
+[license-url]: https://github.com/monobilisim/redmine-project-tags-plugin/blob/main/LICENSE

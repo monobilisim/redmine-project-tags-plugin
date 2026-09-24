@@ -1,0 +1,5 @@
+tr:
+  label_project_tags: Proje Etiketleri
+  field_project_tag_list: Proje etiketleri
+  text_project_tags_hint: Etiketleri virgülle ayırın. Yazarken mevcut etiketler önerilir; yeni etiketler kaydettiğinizde oluşturulur.
+  permission_view_project_tags: Proje etiketlerini görüntüle

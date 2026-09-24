@@ -1,0 +1,90 @@
+<h3><%= l(:label_project_tags) %></h3>
+
+<%= form_with model: @project, url: project_project_tags_path(@project), method: :patch, local: true do |f| %>
+  <p>
+    <%= f.label :project_tag_list, l(:field_project_tag_list) %><br>
+    <div class="project-tag-editor" data-autocomplete-url="<%= autocomplete_project_tags_path(@project) %>">
+      <div class="project-tag-list">
+        <% @project.project_tag_list.to_a.each do |name| %>
+          <%= project_tag_badge(name, removable: true) %>
+        <% end %>
+      </div>
+      <input type="text" id="project_project_tag_input" class="project-tag-input" autocomplete="off">
+      <ul class="project-tag-suggestions" hidden></ul>
+      <%= f.hidden_field :project_tag_list, id: 'project_project_tag_list', value: @project.project_tag_list.to_a.join(',') %>
+    </div>
+  </p>
+  <%= submit_tag l(:button_save) %>
+<% end %>
+
+<%= javascript_tag do %>
+  (function() {
+    var editor = document.querySelector('.project-tag-editor');
+    if (!editor) return;
+    var input = editor.querySelector('.project-tag-input');
+    var hidden = editor.querySelector('#project_project_tag_list');
+    var list = editor.querySelector('.project-tag-list');
+    var suggestions = editor.querySelector('.project-tag-suggestions');
+    var values = hidden.value ? hidden.value.split(',').map(function(value) { return value.trim(); }).filter(Boolean) : [];
+    var selectedIndex = -1;
+
+    function sync() { hidden.value = values.join(','); }
+    function bindRemove(button) {
+      button.addEventListener('click', function() {
+        var value = button.dataset.projectTag;
+        values = values.filter(function(item) { return item.toLowerCase() !== value.toLowerCase(); });
+        button.parentElement.remove();
+        sync();
+      });
+    }
+    Array.prototype.forEach.call(list.querySelectorAll('.project-tag-remove'), bindRemove);
+    function addTag(value) {
+      value = value.trim();
+      if (!value || values.some(function(item) { return item.toLowerCase() === value.toLowerCase(); })) return;
+      values.push(value);
+      var badge = document.createElement('span');
+      badge.className = 'project-tag';
+      badge.style.setProperty('--project-tag-hue', Array.from(value).reduce(function(sum, char) { return sum + char.charCodeAt(0); }, 0) % 360);
+      badge.textContent = value;
+      var remove = document.createElement('button');
+      remove.type = 'button';
+      remove.className = 'project-tag-remove';
+      remove.textContent = '×';
+      remove.dataset.projectTag = value;
+      bindRemove(remove);
+      badge.appendChild(remove);
+      list.appendChild(badge);
+      sync();
+    }
+    function closeSuggestions() { suggestions.hidden = true; suggestions.innerHTML = ''; selectedIndex = -1; }
+    function choose(value) { addTag(value); input.value = ''; closeSuggestions(); }
+    function renderChoices(choices) {
+      suggestions.innerHTML = '';
+      selectedIndex = -1;
+      choices.filter(function(value) { return !values.some(function(item) { return item.toLowerCase() === value.toLowerCase(); }); }).forEach(function(value) {
+        var item = document.createElement('li');
+        item.textContent = value;
+        item.addEventListener('mousedown', function(event) { event.preventDefault(); choose(value); });
+        suggestions.appendChild(item);
+      });
+      suggestions.hidden = suggestions.children.length === 0;
+    }
+    input.addEventListener('keydown', function(event) {
+      var items = suggestions.querySelectorAll('li');
+      if (event.key === 'ArrowDown' && items.length) { event.preventDefault(); selectedIndex = (selectedIndex + 1) % items.length; }
+      if (event.key === 'ArrowUp' && items.length) { event.preventDefault(); selectedIndex = (selectedIndex - 1 + items.length) % items.length; }
+      if (event.key === 'Enter') { event.preventDefault(); choose(selectedIndex >= 0 && items[selectedIndex] ? items[selectedIndex].textContent : input.value); }
+      if (event.key === 'Escape') closeSuggestions();
+      Array.prototype.forEach.call(items, function(item, index) { item.classList.toggle('is-selected', index === selectedIndex); });
+    });
+    input.addEventListener('input', function() {
+      var query = input.value.trim();
+      if (!query) { closeSuggestions(); return; }
+      fetch(editor.dataset.autocompleteUrl + '?q=' + encodeURIComponent(query), { headers: { Accept: 'application/json' } })
+        .then(function(response) { return response.ok ? response.json() : []; })
+        .then(renderChoices)
+        .catch(closeSuggestions);
+    });
+    input.addEventListener('blur', function() { window.setTimeout(closeSuggestions, 150); });
+  }());
+<% end %>

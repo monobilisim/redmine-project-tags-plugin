@@ -1,0 +1,8 @@
+<% if project_tags_visible?(project) && project_tag_names(project).any? %>
+  <div class="project-tags box">
+    <h3><%= l(:label_project_tags) %></h3>
+    <p class="tags">
+      <%= safe_join(project_tag_names(project).map { |name| project_tag_badge(name) }, ' ') %>
+    </p>
+  </div>
+<% end %>

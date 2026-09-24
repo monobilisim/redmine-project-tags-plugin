@@ -1,0 +1,11 @@
+<style>
+  .project-tag-editor { position: relative; max-width: 620px; }
+  .project-tags.box { margin-top: 5px; }
+  .project-tag-list { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 6px; }
+  .project-tag { display: inline-flex; align-items: center; margin: 2px; border-radius: 12px; padding: 2px 9px; background: hsl(var(--project-tag-hue, 210) 70% 88%); color: hsl(var(--project-tag-hue, 210) 45% 25%); font-size: .9em; }
+  .project-tag-remove { margin-left: 6px; border: 0; background: transparent; box-shadow: none !important; cursor: pointer; color: inherit; }
+  .project-tag-input { min-width: 260px; }
+  .project-tag-suggestions { position: absolute; z-index: 20; left: 0; right: 0; margin: 0; padding: 0; list-style: none; background: #fff; border: 1px solid #ccc; box-shadow: 0 2px 5px rgba(0,0,0,.15); }
+  .project-tag-suggestions li { padding: 6px 9px; cursor: pointer; }
+  .project-tag-suggestions li:hover, .project-tag-suggestions li.is-selected { background: #eef5fb; }
+</style>

@@ -1,0 +1,9 @@
+<% project = issue.project %>
+<% if project_tags_visible?(project) && project_tag_names(project).any? %>
+  <div class="project-tags attribute">
+    <div class="label"><span><%= l(:label_project_tags) %>:</span></div>
+    <div class="value tags">
+      <%= safe_join(project_tag_names(project).map { |name| project_tag_badge(name) }, ' ') %>
+    </div>
+  </div>
+<% end %>

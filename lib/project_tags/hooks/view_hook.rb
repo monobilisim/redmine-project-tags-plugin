@@ -25,7 +25,8 @@ module ProjectTags
         return ''.html_safe if caller&.instance_variable_defined?(:@project_tags_overview_rendered)
 
         caller.instance_variable_set(:@project_tags_overview_rendered, true) if caller
-        options = {locals: context, partial: 'project_tags/project_tags'}
+        locals = context.merge(project: context[:project] || caller&.instance_variable_get(:@project))
+        options = {locals: locals, partial: 'project_tags/project_tags'}
         if caller&.respond_to?(:render)
           caller.render(options)
         elsif context[:controller].is_a?(ActionController::Base)
